@@ -1,8 +1,9 @@
 package employeemanagement;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.GetMapping; // Maps GET requests.
+import org.springframework.web.bind.annotation.RequestMapping; // Used to map web requests onto specific handler classes and/or handler methods.
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController; 
 //import java.util.* ;
 
 @RestController 
@@ -11,18 +12,27 @@ public class NotificationController {
 
 //   private final List<String> employees = new ArrayList<>(List.of("Victor Mutinda","Annette Mutuku","Santa Rafiki"));
 
-    private final NotificationService notificationService;
+    private final NotificationService notificationService; 
 
     public NotificationController(NotificationService notificationService){
         this.notificationService = notificationService;
     }
 
-    @GetMapping 
-    public String getNotification(){
+    @GetMapping("/notify") // Maps GET requests to getNotification() method. This method is called when a GET request is made to the /api/employee endpoint.
+    public String getNotification(@RequestParam  String message, @RequestParam String serviceType){
 
-        notificationService.sendNotification("Welcome to the Employee Management Dashboard.");
-        return "Notification sent successfully.";
+
+        notificationService.sendNotification(message,serviceType);
+
+        if (notificationService.isInValidService == false) {
+            return "Notification sent successfully.";
+        } else {
+            return "Choose between sms or email";
+        }
+        
+      //  return "Notification sent successfully.";
     }
+
 
     
     /* @GetMapping
@@ -65,8 +75,4 @@ public class NotificationController {
     }
 */
 
-
-
-
-    
 }

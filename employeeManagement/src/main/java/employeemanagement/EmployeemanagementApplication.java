@@ -13,7 +13,7 @@ public class EmployeemanagementApplication {
 
 // Simply calling the getBean() method on the ApplicationContext to retrieve the NotificationService bean. This is how we can access the beans managed by Spring.
 		NotificationService service = context.getBean(NotificationService.class);
-		service.sendNotification("Welcome to the Employee Management Dashboard.");
+		//service.sendNotification("Welcomed to the Employee Management Dashboard.");
 	}
 
 }
