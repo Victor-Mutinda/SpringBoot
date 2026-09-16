@@ -1,12 +1,16 @@
 package employeemanagement;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping; // Maps GET requests.
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping; // Used to map web requests onto specific handler classes and/or handler methods.
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController; 
 //import java.util.* ;
 
-@RestController 
+@RestController  
 @RequestMapping ("/api/employee") // Provides base url
 public class NotificationController {
 
@@ -18,20 +22,31 @@ public class NotificationController {
         this.notificationService = notificationService;
     }
 
-    @GetMapping("/notify") // Maps GET requests to getNotification() method. This method is called when a GET request is made to the /api/employee endpoint.
-    public String getNotification(@RequestParam  String message, @RequestParam String serviceType) {
-
+    @PostMapping("/notify") // Maps POST requests to sendNotification() method. This method is called when a POST request is made to the /api/employee/notify endpoint.
+    
+    public ResponseEntity<String> sendAlert(@RequestBody RequestDTO request) {
+        String message = request.getMessage();
+        String serviceType = request.getServiceType();
 
         //notificationService.sendNotification(message,serviceType);
 
+        if (notificationService.sendNotification(message, serviceType)) { // if true, then notification was sent
+          return ResponseEntity.ok("Notification sent successfully");
+        } else { // if false, choose between sms or email to send a notification successfully.
+           return ResponseEntity.ok("Choose between email or sms");
+        }
+    }
+
+   /* @PostMapping
+    public String sendAlert(@ResponseBody String message, String serviceType){
         if (notificationService.sendNotification(message, serviceType)) { // if true, then notification was sent
            return "Notification sent successfully.";
         } else { // if false, choose between sms or email to send a notification successfully.
            return "Choose between sms or email";
         }
     }
-        
-      //  return "Notification sent successfully.";
+
+     */      //  return "Notification sent successfully.";
     
 
     
