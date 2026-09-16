@@ -18,28 +18,30 @@ public class NotificationService {
         messageService.sendMessage(message);
     }
     */
-    private final smsService smsService;
+    private final SmsService smsService;
     private final EmailService emailService;
 
     @Autowired 
-    public NotificationService(smsService smsService, EmailService emailService){
+    public NotificationService(SmsService smsService, EmailService emailService){
         this.smsService = smsService;
         this.emailService = emailService;
     }
 
-    boolean isInValidService;
+   // boolean isInValidService;
 
-    public void sendNotification(String message, String serviceType){
+    public boolean sendNotification(String message, String serviceType){
         if(serviceType.equalsIgnoreCase("sms")){
             smsService.sendMessage(message);
-            isInValidService = false;
+            //isInValidService = false;
+            return true;
         } else if(serviceType.equalsIgnoreCase("email")){
             emailService.sendMessage(message);
-            isInValidService = false;
+            //isInValidService = false;
+            return true;
         }
         else {
-           isInValidService = true;
-           System.out.println("Choose between sms or email");
+           System.out.println("Invalid service type. Choose between sms or email.");
+           return false;
 
         }
     }

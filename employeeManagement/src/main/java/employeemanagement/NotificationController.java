@@ -19,20 +19,20 @@ public class NotificationController {
     }
 
     @GetMapping("/notify") // Maps GET requests to getNotification() method. This method is called when a GET request is made to the /api/employee endpoint.
-    public String getNotification(@RequestParam  String message, @RequestParam String serviceType){
+    public String getNotification(@RequestParam  String message, @RequestParam String serviceType) {
 
 
-        notificationService.sendNotification(message,serviceType);
+        //notificationService.sendNotification(message,serviceType);
 
-        if (notificationService.isInValidService == false) {
-            return "Notification sent successfully.";
-        } else {
-            return "Choose between sms or email";
+        if (notificationService.sendNotification(message, serviceType)) { // if true, then notification was sent
+           return "Notification sent successfully.";
+        } else { // if false, choose between sms or email to send a notification successfully.
+           return "Choose between sms or email";
         }
+    }
         
       //  return "Notification sent successfully.";
-    }
-
+    
 
     
     /* @GetMapping
@@ -73,6 +73,8 @@ public class NotificationController {
 
 
     }
-*/
+    */
+   }
 
-}
+
+
