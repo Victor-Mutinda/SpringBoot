@@ -27,6 +27,9 @@ public class NotificationController {
     public ResponseEntity<String> sendAlert(@RequestBody RequestDTO request) {
         String message = request.getMessage();
         String serviceType = request.getServiceType();
+// Instead of creating message & serviceType variables. We could pass the above get Methods() as
+// parameters in the notificationService.sendNotification() method just to make it shorter
+
 
         //notificationService.sendNotification(message,serviceType);
 
