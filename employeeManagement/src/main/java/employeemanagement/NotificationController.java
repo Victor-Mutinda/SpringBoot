@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping; // Used to map we
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController; 
-//import java.util.* ;
+import jakarta.validation.Valid;
 
 @RestController  
 @RequestMapping ("/api/employee") // Provides base url
@@ -25,7 +25,7 @@ public class NotificationController {
 
     @PostMapping("/notify") // Maps POST requests to sendNotification() method. This method is called when a POST request is made to the /api/employee/notify endpoint.
     
-    public ResponseEntity<String> sendAlert(@RequestBody RequestDTO request) {
+    public ResponseEntity<String> sendAlert(@Valid @RequestBody RequestDTO request) {
 // ResponseEntity - a built in Springboot framework class that represents entire HTTP response
 // It gives you full control over what goes back to the client, allowing you to configure:
 //  1. HTTP Status Code (200 OK, 201 CREATED, 400 BAD_REQUEST, 401 NOT_FOUND), 2. HTTP Headers , 3. HTTP Response Body

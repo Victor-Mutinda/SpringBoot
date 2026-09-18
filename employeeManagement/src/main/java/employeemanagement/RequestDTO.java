@@ -8,7 +8,8 @@ public class RequestDTO {
     @Size(min = 2 , max = 100, message = "A minimum of 2 and maximum of 100 characters required.") 
     private String message;
 
-    @NotBlank(message = "Choose between sms or email. Can't be blank.")
+    @NotBlank(message = "Service type Can't be blank.")
+    @Pattern (regexp = "^(sms|email)$", message = "Service type can only be sms or email.", flags = Pattern.Flag.CASE_INSENSITIVE)
     private String serviceType;
 
     public String getMessage(){
