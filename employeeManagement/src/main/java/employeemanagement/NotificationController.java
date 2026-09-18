@@ -1,5 +1,6 @@
 package employeemanagement;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping; // Maps GET requests.
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,6 +26,9 @@ public class NotificationController {
     @PostMapping("/notify") // Maps POST requests to sendNotification() method. This method is called when a POST request is made to the /api/employee/notify endpoint.
     
     public ResponseEntity<String> sendAlert(@RequestBody RequestDTO request) {
+// ResponseEntity - a built in Springboot framework class that represents entire HTTP response
+// It gives you full control over what goes back to the client, allowing you to configure:
+//  1. HTTP Status Code (200 OK, 201 CREATED, 400 BAD_REQUEST, 401 NOT_FOUND), 2. HTTP Headers , 3. HTTP Response Body
         String message = request.getMessage();
         String serviceType = request.getServiceType();
 // Instead of creating message & serviceType variables. We could pass the above get Methods() as
@@ -34,9 +38,10 @@ public class NotificationController {
         //notificationService.sendNotification(message,serviceType);
 
         if (notificationService.sendNotification(message, serviceType)) { // if true, then notification was sent
-          return ResponseEntity.ok("Notification sent successfully");
+          return ResponseEntity.ok("Notification sent successfully"); // http status code of 200 OK
         } else { // if false, choose between sms or email to send a notification successfully.
-           return ResponseEntity.ok("Choose between email or sms");
+           return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Choose between email or sms");
+           // http status code of 400 BAD REQUEST
         }
     }
 
