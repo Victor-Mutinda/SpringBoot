@@ -3,12 +3,13 @@ package employeemanagement;
 import java.time.LocalDateTime;
 import java.util.Map;
 
+// This call is Responsible for the Error is structured. The attributes.
 public class ErrorResponse {
-    private LocalDateTime timestamp;
-    private int status;
-    private String error;
-    private String message;
-    private Map<String, String> validations; // Holds field names and error messages
+    private LocalDateTime timestamp; // Indicates when the error occurred
+    private int status; // Indicates the http status code
+    private String error; // Indicates the short/general description of http error. Eg Bad_Request
+    private String message; // Indicates the explanation of what went wrong
+    private Map<String, String> validations; // Holds field names and error messages. This contains the specific field-level errors.
 
     public ErrorResponse (int status, String error, String message,Map<String, String> validations){
         this.timestamp = LocalDateTime.now();
